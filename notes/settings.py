@@ -75,12 +75,13 @@ WSGI_APPLICATION = 'notes.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
+DATABASE_URL = os.environ.get('DATABASE_URL')
+
 DATABASES = {
     'default': dj_database_url.config(
-        # The 'default' here is for local development only
-        default='sqlite:///db.sqlite3', 
+        default=DATABASE_URL if DATABASE_URL else 'sqlite:///db.sqlite3',
         conn_max_age=600,
-        ssl_require=True # Supabase requires SSL
+        ssl_require=True
     )
 }
 
